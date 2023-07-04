@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load my_filter %}
+
+{% block css_aditional %}
+<link rel="stylesheet" href="{% static 'horoscope/css/info_zodiac.css' %}">
+{% endblock %}
+
+{% block title %}
+Гороскоп для {{ description|split|first }}
+{% endblock %}
+
+{% block content %}
+<h1>{{ description|split|first }}</h1>
+
+{% include 'includes/nafbar.html' %}
+
+<h2> {{ description }}</h2>
+{% endblock %}

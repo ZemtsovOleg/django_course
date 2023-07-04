@@ -1,0 +1,8 @@
+{% load my_filter %}
+
+<nav>
+    <a href="{% url 'horoscope-urls-index' %}">Главная</a>
+    {% for zodiac, key_description in zodiac_dict.items %}
+        <a href="{% url 'horoscope-urls-name' zodiac %}">{{ key_description|split|first }}</a>
+    {% endfor %}
+</nav>
