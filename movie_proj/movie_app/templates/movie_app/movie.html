@@ -6,7 +6,7 @@
 
 <h1> Movie: {{ movie.name }} </h1>
 
-<p> Rating: {{ movie.rating }}</p>
+<p> Rating: {{ movie.rating|default:"Unknown" }}</p>
 <p> Year of issue: {{ movie.year|default:"Unknown" }}</p>
 
 {% endblock %}

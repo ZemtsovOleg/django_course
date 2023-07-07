@@ -1,16 +1,30 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 
 
 class Movie(models.Model):
-    name = models.CharField(max_length=40)
-    rating = models.IntegerField()
-    year = models.IntegerField(null=True)
-    budget = models.IntegerField(null=True)
-    slug = models.SlugField(default='', null=False)
+
+    COUNTRIES_CHOICES = [
+        ('US', 'USA'),
+        ('CA', 'Canada'),
+        ('JP', 'Japan'),
+        ('AI', 'England')
+    ]
+
+    name = models.CharField(max_length=150)
+    rating = models.IntegerField(blank=True, null=True, validators=[
+                                 MinValueValidator(1), MaxValueValidator(100)])
+    year = models.IntegerField(blank=True, null=True, validators=[
+        MinValueValidator(1895), MaxValueValidator(2050)])
+    budget = models.IntegerField(
+        blank=True, null=True, validators=[MinValueValidator(1)])
+    country = models.CharField(
+        max_length=2, choices=COUNTRIES_CHOICES, default='')
+    slug = models.SlugField(null=False)
 
     class Meta:
         indexes = [
@@ -25,7 +39,7 @@ class Movie(models.Model):
         return super().save(*args, **kwargs)
 
     def __str__(self) -> str:
-        return f'{self.name}, {self.rating}, {self.year}, {self.budget}'
+        return f'{self.id}, {self.name}'
 
 
 # from movie_app.models import Movie

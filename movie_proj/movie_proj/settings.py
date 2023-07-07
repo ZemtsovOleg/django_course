@@ -123,4 +123,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-USE_THOUSAND_SEPARATOR = True
+# USE_THOUSAND_SEPARATOR = True
