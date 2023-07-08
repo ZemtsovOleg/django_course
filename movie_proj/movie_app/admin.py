@@ -1,15 +1,15 @@
 from django.contrib import admin
-from .models import Movie, Director
+from .models import Movie#, Director
 
 # Register your models here.
 
 
-class DirectorAdmin(admin.ModelAdmin):
-    exclude = ['slug']
-    list_display = ['id', 'first_name', 'last_name', 'slug']
-    list_per_page = 20
-    list_editable = ['first_name', 'last_name']
-    search_fields = ['first_name', 'last_name']
+# class DirectorAdmin(admin.ModelAdmin):
+#     exclude = ['slug']
+#     list_display = ['id', 'first_name', 'last_name', 'slug']
+#     list_per_page = 20
+#     list_editable = ['first_name', 'last_name']
+#     search_fields = ['first_name', 'last_name']
 
 
 class MovieAdmin(admin.ModelAdmin):
@@ -23,4 +23,4 @@ class MovieAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Movie, MovieAdmin)
-admin.site.register(Director, DirectorAdmin)
+# admin.site.register(Director, DirectorAdmin)
