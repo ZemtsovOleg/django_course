@@ -12,7 +12,7 @@ class Director(models.Model):
     slug = models.SlugField(null=False)
 
     def save(self, *args, **kwargs):
-        combined_name = f"{self.first_name} {self.last_name}"
+        combined_name = f'{self.first_name} {self.last_name}'
         self.slug = slugify(combined_name)
         return super().save(*args, **kwargs)
 
@@ -21,6 +21,23 @@ class Director(models.Model):
 
     def get_url(self):
         return reverse('director-url', args=(self.slug, ))
+    
+
+class Actor(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    slug = models.SlugField(null=False)
+
+    def save(self, *args, **kwargs):
+        combined_name = f'{self.first_name} {self.last_name}'
+        self.slug = slugify(combined_name)
+        return super().save(*args, **kwargs)
+
+    def __str__(self) -> str:
+        return f'{self.first_name} {self.last_name}'
+
+    def get_url(self):
+        return reverse('actor-url', args=(self.slug, ))
 
 
 class Movie(models.Model):
@@ -34,7 +51,7 @@ class Movie(models.Model):
 
     name = models.CharField(max_length=150)
     # director = models.ForeignKey(
-    #     Director, on_delete=models.PROTECT, blank=True, null=True, default='')
+    #     Director, on_delete=models.PROTECT, blank=True, null=True)
     rating = models.IntegerField(blank=True, null=True, validators=[
                                  MinValueValidator(1), MaxValueValidator(100)])
     year = models.IntegerField(blank=True, null=True, validators=[
@@ -42,7 +59,7 @@ class Movie(models.Model):
     budget = models.IntegerField(
         blank=True, null=True, validators=[MinValueValidator(1)])
     country = models.CharField(
-        max_length=2, choices=COUNTRIES_CHOICES, default='')
+        max_length=2, blank=True, choices=COUNTRIES_CHOICES, default='')
     slug = models.SlugField(null=False)
 
     class Meta:
