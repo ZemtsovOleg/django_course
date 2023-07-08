@@ -6,6 +6,23 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 # Create your models here.
 
 
+class Director(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    slug = models.SlugField(null=False)
+
+    def save(self, *args, **kwargs):
+        combined_name = f"{self.first_name} {self.last_name}"
+        self.slug = slugify(combined_name)
+        return super().save(*args, **kwargs)
+
+    def __str__(self) -> str:
+        return f'{self.first_name} {self.last_name}'
+
+    def get_url(self):
+        return reverse('director-url', args=(self.slug, ))
+
+
 class Movie(models.Model):
 
     COUNTRIES_CHOICES = [
@@ -16,6 +33,8 @@ class Movie(models.Model):
     ]
 
     name = models.CharField(max_length=150)
+    # director = models.ForeignKey(
+    #     Director, on_delete=models.PROTECT, blank=True, null=True, default='')
     rating = models.IntegerField(blank=True, null=True, validators=[
                                  MinValueValidator(1), MaxValueValidator(100)])
     year = models.IntegerField(blank=True, null=True, validators=[
