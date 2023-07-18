@@ -60,8 +60,9 @@ class Actor(CountryMixin, Person):
 
 class Movie(CountryMixin, models.Model):
     name = models.CharField(max_length=150)
-    # director = models.ForeignKey(
-    #     Director, on_delete=models.PROTECT, blank=True, null=True)
+    director = models.ForeignKey(
+        Director, on_delete=models.PROTECT, blank=True, null=True)
+    actors = models.ManyToManyField(Actor, blank=True)
     rating = models.IntegerField(blank=True, null=True, validators=[
                                  MinValueValidator(1), MaxValueValidator(100)])
     year = models.IntegerField(blank=True, null=True, validators=[
@@ -87,3 +88,4 @@ class Movie(CountryMixin, models.Model):
 
 
 # from movie_app.models import Movie
+# python3 manage.py shell_plus

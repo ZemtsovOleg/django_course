@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'feedback/css/base.css' %}">
+</head>
+
+<body>
+
+    {% block content %} {% endblock %}
+
+</body>
+
+</html>

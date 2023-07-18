@@ -1,15 +1,15 @@
 {% extends 'movie_app/base.html' %}
 
-{% block title %} Director {{ director.get_full_name }} {% endblock %}
+{% block title %} Actor {{ actor.get_full_name }} {% endblock %}
 
 {% block content %}
 
-<h1> Director: {{ director.get_full_name }} </h1>
+<h1> Actor: {{ actor.get_full_name }} </h1>
 
-<h2>Movies made:</h2>
+<h2>Movies:</h2>
 
 <ul>
-    {% for movie in director.movie_set.all %}
+    {% for movie in actor.movie_set.all %}
     <li><a href="{{ movie.get_url }}">{{ movie.name }}</a></li>
     {% endfor%}
 </ul>
