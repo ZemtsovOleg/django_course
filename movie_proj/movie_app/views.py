@@ -1,7 +1,8 @@
 from django.db.models import Avg, Count, F, Max, Min, Sum
 from django.shortcuts import get_object_or_404, render
+from django.views.generic import ListView, DetailView
 
-from .models import Movie, Director, Actor
+from .models import Actor, Director, Movie
 
 # Create your views here.
 
@@ -29,12 +30,23 @@ def show_director(request, slug_director: str):
     return render(request, 'movie_app/director.html', {'director': director})
 
 
-def show_all_actors(request):
-    actors = Actor.objects.all().order_by('first_name', 'last_name')
-    return render(request, 'movie_app/all_actors.html',
-                  {'actors': actors})
+# def show_all_actors(request):
+#     actors = Actor.objects.all().order_by('first_name', 'last_name')
+#     return render(request, 'movie_app/all_actors.html',
+#                   {'actors': actors})
 
 
-def show_actor(request, slug_actor: str):
-    actor = get_object_or_404(Actor, slug=slug_actor)
-    return render(request, 'movie_app/actor.html', {'actor': actor})
+class ActorsListView(ListView):
+    template_name = 'movie_app/all_actors.html'
+    model = Actor
+    context_object_name = 'actors'  # object_list
+
+
+# def show_actor(request, slug_actor: str):
+#     actor = get_object_or_404(Actor, slug=slug_actor)
+#     return render(request, 'movie_app/actor.html', {'actor': actor})
+
+class ActorDetailView(DetailView):
+    template_name = 'movie_app/actor.html'
+    model = Actor
+    slug_url_kwarg = 'slug_actor'

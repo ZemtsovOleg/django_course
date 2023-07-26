@@ -1,0 +1,17 @@
+{% extends 'feedback/base.html' %}
+
+{% block title %} List feedback {% endblock %}
+
+{% block content %}
+
+<h2>List feedback</h2>
+
+<ul>
+    {% for city in feedbacks_data %}
+    <div class="form-style">
+        <li>{{ city.favorite_city }}</li>
+    </div>
+    {% endfor%}
+</ul>
+
+{% endblock %}

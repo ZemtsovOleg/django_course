@@ -34,6 +34,9 @@ class Person(models.Model):
 
     class Meta:
         abstract = True
+        constraints = [
+            models.UniqueConstraint(fields=['first_name', 'last_name'], name='unique_person')
+        ]
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.get_full_name())
