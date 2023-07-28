@@ -1,6 +1,7 @@
 from django.db.models import Avg, Count, F, Max, Min, Sum
+from django.http import HttpResponseNotFound
 from django.shortcuts import get_object_or_404, render
-from django.views.generic import ListView, DetailView
+from django.views.generic import DetailView, ListView
 
 from .models import Actor, Director, Movie
 
@@ -50,3 +51,7 @@ class ActorDetailView(DetailView):
     template_name = 'movie_app/actor.html'
     model = Actor
     slug_url_kwarg = 'slug_actor'
+
+
+def pageNotFound(request, exception):
+    return HttpResponseNotFound('Page not found')

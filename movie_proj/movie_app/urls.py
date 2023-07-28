@@ -11,4 +11,3 @@ urlpatterns = [
     # path('actor/<slug:slug_actor>', views.show_actor, name='actor-url'),
     path('<slug:slug_movie>', views.show_movie, name='movie-url'),
 ]
-

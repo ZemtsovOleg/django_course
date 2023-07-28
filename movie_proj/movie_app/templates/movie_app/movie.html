@@ -10,7 +10,7 @@
 <p> Year of issue: {{ movie.year|default:"Unknown" }}</p>
 
 {% if movie.director %}
-<h2>Director: <a href="{{ movie.director.get_url }}">{{ movie.director }}</a></h2>
+<h2>Director: <a href="{{ movie.director.get_absolute_url }}">{{ movie.director }}</a></h2>
 {% else %}
 <h2>Director: Unknown</h2>
 {% endif %}
@@ -20,7 +20,7 @@
 <ul>
     {% if movie.actors.all %}
     {% for actor in movie.actors.all %}
-    <li><a href="{{ actor.get_url }}">{{ actor.get_full_name }}</a></li>
+    <li><a href="{{ actor.get_absolute_url }}">{{ actor.get_full_name }}</a></li>
     {% endfor%}
     {% else %}
     <h2>Unknown</h2>

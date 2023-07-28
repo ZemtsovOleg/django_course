@@ -8,7 +8,7 @@
 
 <ul>
     {% for director in directors %}
-    <li><a href="{{ director.get_url }}">{{ director.get_full_name }}</a></li>
+    <li><a href="{{ director.get_absolute_url }}">{{ director.get_full_name }}</a></li>
     {% endfor%}
 </ul>
 

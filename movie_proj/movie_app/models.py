@@ -34,9 +34,6 @@ class Person(models.Model):
 
     class Meta:
         abstract = True
-        constraints = [
-            models.UniqueConstraint(fields=['first_name', 'last_name'], name='unique_person')
-        ]
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.get_full_name())
@@ -51,13 +48,19 @@ class Person(models.Model):
 
 class Director(CountryMixin, Person):
 
-    def get_url(self):
+    def get_absolute_url(self):
         return reverse('director-url', args=(self.slug, ))
 
 
 class Actor(CountryMixin, Person):
 
-    def get_url(self):
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['first_name', 'last_name'], name='unique_actor')
+                ]
+
+    def get_absolute_url(self):
         return reverse('actor-url', args=(self.slug, ))
 
 
@@ -79,7 +82,7 @@ class Movie(CountryMixin, models.Model):
             models.Index(fields=['name'], name='movie_name_index'),
         ]
 
-    def get_url(self):
+    def get_absolute_url(self):
         return reverse('movie-url', args=(self.slug, ))
 
     def save(self, *args, **kwargs):

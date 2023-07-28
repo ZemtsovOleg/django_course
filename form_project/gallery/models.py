@@ -4,4 +4,4 @@ from django.db import models
 
 
 class Gallery(models.Model):
-    image = models.FileField(upload_to='uploaded files')
+    image = models.FileField(upload_to="uploaded_files/%Y/%m/%d/")
