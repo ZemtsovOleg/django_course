@@ -6,6 +6,6 @@ urlpatterns = [
     path('', FeedbackCreateView.as_view()),
     path('done', DoneTemplateView.as_view()),
     path('list', FeedBackListView.as_view()),
-    path('detail/<int:pk>', FeedBackDetailView.as_view()),
-    path('<int:pk>', FeedbackUpdateView.as_view())
+    path('detail/<slug:slug_full_name>', FeedBackDetailView.as_view(), name='full-name-url'),
+    path('<slug:slug_full_name>', FeedbackUpdateView.as_view())
 ]

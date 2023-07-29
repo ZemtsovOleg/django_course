@@ -12,7 +12,8 @@ from .models import Feedback
 class FeedbackForm(forms.ModelForm):
     class Meta:
         model = Feedback
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = ('slug', )
         labels = {
             'favorite_city': 'Favorite city',
             'age': 'Age',

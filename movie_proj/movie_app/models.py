@@ -30,10 +30,14 @@ class Person(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
-    slug = models.SlugField(null=False)
+    slug = models.SlugField(max_length=255, null=False, unique=True)
 
     class Meta:
         abstract = True
+        indexes = [
+            models.Index(fields=['name'], name='movie_name_idx'),
+            models.Index(fields=['slug'], name='slug_idx'),
+        ]
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.get_full_name())
@@ -48,6 +52,12 @@ class Person(models.Model):
 
 class Director(CountryMixin, Person):
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['first_name', 'last_name'], name='unique_director')
+        ]
+
     def get_absolute_url(self):
         return reverse('director-url', args=(self.slug, ))
 
@@ -58,7 +68,7 @@ class Actor(CountryMixin, Person):
         constraints = [
             models.UniqueConstraint(
                 fields=['first_name', 'last_name'], name='unique_actor')
-                ]
+        ]
 
     def get_absolute_url(self):
         return reverse('actor-url', args=(self.slug, ))
@@ -75,11 +85,12 @@ class Movie(CountryMixin, models.Model):
         MinValueValidator(1895), MaxValueValidator(2050)])
     budget = models.IntegerField(
         blank=True, null=True, validators=[MinValueValidator(1)])
-    slug = models.SlugField(null=False)
+    slug = models.SlugField(max_length=255, null=False, unique=True)
 
     class Meta:
         indexes = [
-            models.Index(fields=['name'], name='movie_name_index'),
+            models.Index(fields=['name'], name='movie_name_idx'),
+            models.Index(fields=['slug'], name='slug_idx'),
         ]
 
     def get_absolute_url(self):

@@ -5,6 +5,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView, UpdateView
 from django.views.generic.list import ListView
+from django.urls import reverse_lazy
 
 from .forms import FeedbackForm
 from .models import Feedback
@@ -17,7 +18,7 @@ class FeedbackCreateView(CreateView):
     # fields = '__all__'
     form_class = FeedbackForm
     template_name = 'feedback/feedback.html'
-    success_url = 'done'
+    # success_url = 'done'
 
 
 class FeedbackUpdateView(UpdateView):
@@ -25,6 +26,7 @@ class FeedbackUpdateView(UpdateView):
     form_class = FeedbackForm
     template_name = 'feedback/feedback.html'
     success_url = 'done'
+    slug_url_kwarg = 'slug_full_name'
 
 
 class DoneTemplateView(TemplateView):
@@ -36,10 +38,14 @@ class FeedBackListView(ListView):
     model = Feedback
     context_object_name = 'feedbacks_data'  # 'object_list'
 
+    def get_queryset(self):
+        return Feedback.objects.filter(tattoo=True)
+
 
 class FeedBackDetailView(DetailView):
     template_name = 'feedback/detail_feedback.html'
     model = Feedback
+    slug_url_kwarg = 'slug_full_name'
 
 
 # def index(request):
