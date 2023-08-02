@@ -1,0 +1,18 @@
+{% extends 'movie_app/base.html' %}
+
+{% block title %} Sign in to CinemaHub {% endblock %}
+
+{% block content %}
+
+<h2>Sign in to CinemaHub</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="form-style">
+        {{ form.as_p }}
+    </div>
+    <br>
+    <button>Send</button>
+</form>
+
+{% endblock %}

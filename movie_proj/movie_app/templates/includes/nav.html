@@ -1,0 +1,17 @@
+<nav>
+    <a href="{% url 'home-url' %}">Home</a> |
+    <a href="{% url 'movies-url' %}">Movies</a> |
+    <a href="{% url 'directors-url' %}">Directors</a> |
+    <a href="{% url 'actors-url' %}">Actors</a>
+    <p>User: {{ user }}</p>
+</nav>
+
+<div class="header">
+    <ul id="mainmenu" class="mainmenu">
+        <li class="last">
+            <a href="{% url 'register-url' %}">Sign up</a> |
+            <a href="{% url 'login-url' %}">Sign in</a>
+        </li>
+    </ul>
+    <div class="clear"></div>
+</div>

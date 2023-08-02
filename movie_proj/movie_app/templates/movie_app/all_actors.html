@@ -12,10 +12,6 @@
     {% endfor%}
 </ul>
 
-<br>
-
-<h3>
-    <a href="{% url 'home' %}">Главная страница</a>
-</h3>
+{% include 'includes/pagination.html' %}
 
 {% endblock %}

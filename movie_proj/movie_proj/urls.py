@@ -22,6 +22,7 @@ from movie_app.views import pageNotFound
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('movie_app.urls')),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
 
 handler404 = pageNotFound

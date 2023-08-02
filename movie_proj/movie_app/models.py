@@ -83,9 +83,13 @@ class Movie(CountryMixin, models.Model):
                                  MinValueValidator(1), MaxValueValidator(100)])
     year = models.IntegerField(blank=True, null=True, validators=[
         MinValueValidator(1895), MaxValueValidator(2050)])
+    premiere_date = models.DateField(null=True, blank=True)
     budget = models.IntegerField(
         blank=True, null=True, validators=[MinValueValidator(1)])
+    color = models.BooleanField(default=True)
     slug = models.SlugField(max_length=255, null=False, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         indexes = [
@@ -104,5 +108,7 @@ class Movie(CountryMixin, models.Model):
         return f'{self.id}, {self.name}'
 
 
-# from movie_app.models import Movie
+# from django.db.models import Avg, Case, Count, F, Max, Min, Prefetch, Q, Sum, When
+# from movie_app.models import Movie, Director, Actor
+# from django.db import connection
 # python3 manage.py shell_plus
