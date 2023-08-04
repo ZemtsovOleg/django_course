@@ -21,15 +21,9 @@
     {% include 'includes/header.html' %}
   </div>
 
-  {% block content %} {% endblock %}
-
   <div class="row">
     <div class="leftcolumn">
-      {% block leftcolumn %} {% endblock %}
-    </div>
-
-    <div class="rightcolumn">
-      {% include 'includes/right_column.html' %}
+      {% block content %} {% endblock %}
     </div>
   </div>
 

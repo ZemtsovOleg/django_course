@@ -9,13 +9,32 @@
 
 <form class="container" method="post">
   {% csrf_token %}
-  <div class="mb-3">
-    {{ form }}
+  <div class="col-md-6">
+    <label class="form-label">Username:</label>
+    {{ form.username }}
+    {{ form.errors.username }}
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-  <br><br>
+  <div class="col-md-6">
+    <label for="inputEmail4" class="form-label">Email:</label>
+    {{ form.email }}
+    {{ form.errors.email }}
+  </div>
+  <div class="col-md-6">
+    <label for="inputPassword4" class="form-label">Password:</label>
+    {{ form.password1 }}
+    {{ form.errors.password1 }}
+  </div>
+  <div class="col-md-6">
+    <label for="inputPassword4" class="form-label">Password confirmation:</label>
+    {{ form.password2 }}
+    {{ form.errors.password2 }}
+  </div>
+  <br>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+  <br>
   <a href="{% url 'login' %}">Already have an account?</a>
 </form>
-
 
 {% endblock %}

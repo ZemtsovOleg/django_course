@@ -32,6 +32,8 @@ AUTH_USER_MODEL = "user.CustomUser"
 LOGIN_REDIRECT_URL = 'home-url'
 LOGOUT_REDIRECT_URL = 'home-url'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 # Application definition
 
 INSTALLED_APPS = [

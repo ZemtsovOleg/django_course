@@ -1,11 +1,7 @@
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth.views import LoginView
-from django.db.models import Avg, Count, F, Max, Min, Sum
+from django.db.models import Avg, Count, Sum
 from django.http import HttpResponseNotFound
 from django.shortcuts import get_object_or_404, render
-from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView
-from django.views.generic.edit import CreateView
 
 from .models import Actor, Director, Movie
 
@@ -55,18 +51,6 @@ class ActorDetailView(DetailView):
     template_name = 'movie_app/actor.html'
     model = Actor
     slug_url_kwarg = 'slug_actor'
-
-
-class RegisterUserCreateView(CreateView):
-    form_class = UserCreationForm
-    template_name = 'movie_app/register.html'
-    success_url = reverse_lazy('home-url')
-
-
-class LoginUserLoginView(LoginView):
-    form_class = AuthenticationForm
-    template_name = 'movie_app/login.html'
-    success_url = reverse_lazy('home-url')
 
 
 def pageNotFound(request, exception):

@@ -1,15 +1,15 @@
 {% extends 'movie_app/base.html' %}
 
-{% block title %} Home {% endblock %}
+{% block title %} Cinema {% endblock %}
 
-{% block leftcolumn %}
+{% block content %}
 
 {% for movie in movies %}
 <div class="card">
-  <h2>{{movie.name}}</h2>
+  <h2><a href="{{ movie.get_absolute_url }}">{{ movie.name }}</a></h2>
   <h5>{{movie.rating}}</h5>
   <div class="fakeimg" style="height:200px;">Image</div>
-  <p>{{movie.director}}</p>
+  <p><a href="{{ movie.director.get_absolute_url }}">{{ movie.director.get_full_name }}</a></p>
 </div>
 {% endfor %}
 
