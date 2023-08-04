@@ -32,6 +32,7 @@ def show_director(request, slug_director: str):
 
 
 class IndexListView(ListView):
+    paginate_by = 5
     template_name = 'movie_app/index.html'
     model = Movie
     context_object_name = 'movies'  # object_list

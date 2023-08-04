@@ -1,6 +1,10 @@
-<nav>
-    <a href="{% url 'home-url' %}">Home</a> |
-    <a href="{% url 'movies-url' %}">Movies</a> |
-    <a href="{% url 'directors-url' %}">Directors</a> |
-    <a href="{% url 'actors-url' %}">Actors</a>
-</nav>
+<div class="container">
+  <header class="d-flex justify-content-center py-3">
+    <ul class="nav nav-pills">
+      <li class="nav-item"><a href="{% url 'home-url' %}" class="nav-link" aria-current="page">Home</a></li>
+      <li class="nav-item"><a href="{% url 'movies-url' %}" class="nav-link">Movies</a></li>
+      <li class="nav-item"><a href="{% url 'directors-url' %}" class="nav-link">Directors</a></li>
+      <li class="nav-item"><a href="{% url 'actors-url' %}" class="nav-link">Actors</a></li>
+    </ul>
+  </header>
+</div>

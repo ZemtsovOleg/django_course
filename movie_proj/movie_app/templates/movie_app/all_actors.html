@@ -7,7 +7,7 @@
 <h1>List of actors:</h1>
 
 <ul>
-    {% for actor in actors %}
+    {% for actor in page_obj %}
     <li><a href="{{ actor.get_absolute_url }}">{{ actor.get_full_name }}</a></li>
     {% endfor%}
 </ul>

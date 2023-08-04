@@ -10,6 +10,7 @@ class CustomUserCreationForm(UserCreationForm):
         model = CustomUser
         fields = ('username', 'email', 'password1', 'password2')
 
+
     def clean_username(self):
         username = super().clean_username()
         if username is None:

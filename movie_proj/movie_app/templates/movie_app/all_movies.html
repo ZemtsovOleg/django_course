@@ -11,6 +11,7 @@
     <li><a href="{{ movie.get_absolute_url }}">{{ movie.name }}</a></li>
     {% endfor%}
 </ul>
+
 <h2>Общий бюджет всех фильмов {{ agg.budget__sum }} $</h2>
 <h3>Средний рейтинг всех фильмов {{ agg.rating__avg|floatformat }}</h3>
 <h4>Общие количество фильмов {{ agg.id__count }}</h4>

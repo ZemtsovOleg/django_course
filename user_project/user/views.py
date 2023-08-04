@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView
+from django.contrib.auth import login
+from django.shortcuts import redirect
 
 from .forms import CustomUserCreationForm
 
@@ -27,3 +29,5 @@ class CustomPasswordResetView(PasswordResetView):
 class ProfilePageView(LoginRequiredMixin, TemplateView):
     template_name = 'user/profile.html'
     login_url = reverse_lazy('login')
+
+'''Рекомендуется реализовать ограничение числа попыток входа и блокировку учетных записей после нескольких неудачных попыток.'''

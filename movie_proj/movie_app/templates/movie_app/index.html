@@ -4,7 +4,7 @@
 
 {% block content %}
 
-{% for movie in movies %}
+{% for movie in page_obj %}
 <div class="card">
   <h2><a href="{{ movie.get_absolute_url }}">{{ movie.name }}</a></h2>
   <h5>{{movie.rating}}</h5>
@@ -12,5 +12,7 @@
   <p><a href="{{ movie.director.get_absolute_url }}">{{ movie.director.get_full_name }}</a></p>
 </div>
 {% endfor %}
+
+{% include 'includes/pagination.html' %}
 
 {% endblock %}
