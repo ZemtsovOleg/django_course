@@ -15,11 +15,6 @@ def show_all_movies(request):
                   {'movies': movies, 'agg': agg})
 
 
-def show_movie(request, slug_movie: str):
-    movie = get_object_or_404(Movie, slug=slug_movie)
-    return render(request, 'movie_app/movie.html', {'movie': movie})
-
-
 def show_all_directors(request):
     directors = Director.objects.all().order_by('first_name', 'last_name')
     return render(request, 'movie_app/all_directors.html',
@@ -32,26 +27,39 @@ def show_director(request, slug_director: str):
 
 
 class IndexListView(ListView):
-    paginate_by = 5
+    paginate_by = 7
     template_name = 'movie_app/index.html'
     model = Movie
+    ordering = ['name']
     context_object_name = 'movies'  # object_list
+    # queryset = Movie.objects.filter(is_published=True).select_related('director').prefetch_related('actors') 
+
+    def get_queryset(self):
+        # Фильтруем записи по полю is_published, чтобы исключить неопубликованные
+        return super().get_queryset().filter(is_published=True).select_related('director').prefetch_related('actors')
 
 
 class ActorsListView(ListView):
-    paginate_by = 5
+    paginate_by = 4
     template_name = 'movie_app/all_actors.html'
     model = Actor
     context_object_name = 'actors'
-
-    def get_queryset(self):
-        return Actor.objects.all().order_by('id')
+    ordering = ['first_name', 'last_name']
 
 
 class ActorDetailView(DetailView):
     template_name = 'movie_app/actor.html'
     model = Actor
     slug_url_kwarg = 'slug_actor'
+
+
+class MovieDetailView(DetailView):
+    template_name = 'movie_app/movie.html'
+    model = Movie
+    slug_url_kwarg = 'slug_movie'
+
+    def get_queryset(self):
+        return super().get_queryset().select_related('director').prefetch_related('actors')
 
 
 def pageNotFound(request, exception):
@@ -67,3 +75,8 @@ def pageNotFound(request, exception):
 #     actors = Actor.objects.all().order_by('first_name', 'last_name')
 #     return render(request, 'movie_app/all_actors.html',
 #                   {'actors': actors})
+
+
+# def show_movie(request, slug_movie: str):
+#     movie = get_object_or_404(Movie, slug=slug_movie)
+#     return render(request, 'movie_app/movie.html', {'movie': movie})

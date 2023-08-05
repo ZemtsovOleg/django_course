@@ -7,9 +7,22 @@
 {% for movie in page_obj %}
 <div class="card">
   <h2><a href="{{ movie.get_absolute_url }}">{{ movie.name }}</a></h2>
-  <h5>{{movie.rating}}</h5>
-  <div class="fakeimg" style="height:200px;">Image</div>
-  <p><a href="{{ movie.director.get_absolute_url }}">{{ movie.director.get_full_name }}</a></p>
+  <h5>Rating: {{ movie.rating|default:"Unknown" }}
+    <h5>Year of issue: {{ movie.year|default:"Unknown" }}</h5>
+    <div class="fakeimg" style="height:200px;">Image</div>
+
+    {% if movie.director %}
+    <p>Director: <a href="{{ movie.director.get_absolute_url }}">{{ movie.director.get_full_name }}</a></p>
+    {% endif %}
+
+    {% if movie.actors.all %}
+    <ul>
+      <h5>Starring:</h5>
+      {% for actor in movie.actors.all %}
+      <li><a href="{{ actor.get_absolute_url }}">{{ actor.get_full_name }}</a></li>
+      {% endfor%}
+    </ul>
+    {% endif %}
 </div>
 {% endfor %}
 

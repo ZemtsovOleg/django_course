@@ -1,20 +1,41 @@
 {% if page_obj.has_other_pages %}
-    <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page=1">First</a> |
-                <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
-            {% endif %}
+<nav aria-label="Page navigation example" class="d-flex justify-content-center py-3">
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page=1" aria-label="Previous">
+                <span aria-hidden="true">First</span>
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">Previous</span>
+            </a>
+        </li>
+        {% endif %}
 
-            <span class="current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-            </span>
+        {% for p in paginator.page_range %}
 
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">Next</a> |
-                <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-            {% endif %}
-        </span>
-    </div>
+        {% if page_obj.number == p %}
+        <li class="page-item active"><a class="page-link">{{ p }}</a></li>
+        {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+        <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+        {% endif %}
+        
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">Next</span>
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Next">
+                <span aria-hidden="true">Last</span>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
 {% endif %}
-

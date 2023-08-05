@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,13 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = "user.CustomUser"
-
-LOGIN_REDIRECT_URL = 'home-url'
-LOGOUT_REDIRECT_URL = 'home-url'
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -44,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user',
+    'axes',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'axes.middleware.AxesMiddleware',
 ]
 
 ROOT_URLCONF = 'user_project.urls'
@@ -128,3 +124,21 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# My settings
+
+AUTH_USER_MODEL = "user.CustomUser"
+
+LOGIN_REDIRECT_URL = 'home-url'
+LOGOUT_REDIRECT_URL = 'home-url'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesStandaloneBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+AXES_FAILURE_LIMIT = 4
+AXES_COOLOFF_TIME = timedelta(minutes=30)
+AXES_ENABLED = True

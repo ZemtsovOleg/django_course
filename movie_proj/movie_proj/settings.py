@@ -53,9 +53,6 @@ MIDDLEWARE = [
     "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
 
 ROOT_URLCONF = 'movie_proj.urls'
 
@@ -131,3 +128,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # USE_THOUSAND_SEPARATOR = True
+
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]

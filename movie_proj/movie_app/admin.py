@@ -28,8 +28,8 @@ class ActorAdmin(PersonAdmin):
 @admin.register(Movie)
 class MovieAdmin(BaseAdmin):
     list_display = ['id', 'name', 'director',
-                    'rating', 'year', 'budget', 'country', 'slug']
-    list_editable = ['name', 'director', 'rating', 'year', 'budget', 'country']
+                    'rating', 'year', 'budget', 'country', 'is_published', 'slug']
+    list_editable = ['name', 'director', 'rating', 'year', 'budget', 'country', 'is_published']
     search_fields = ['name', 'actors', 'director', 'year', 'country']
     list_filter = ['year', 'country']
     filter_horizontal = ['actors']

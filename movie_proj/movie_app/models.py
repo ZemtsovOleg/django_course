@@ -90,6 +90,7 @@ class Movie(CountryMixin, models.Model):
     slug = models.SlugField(max_length=255, null=False, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    is_published = models.BooleanField(default=False)
 
     class Meta:
         indexes = [
