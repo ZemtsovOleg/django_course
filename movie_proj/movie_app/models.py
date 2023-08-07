@@ -75,7 +75,7 @@ class Actor(CountryMixin, Person):
 
 
 class Movie(CountryMixin, models.Model):
-    name = models.CharField(max_length=150)
+    name = models.CharField(max_length=150, blank=False)
     director = models.ForeignKey(
         Director, on_delete=models.PROTECT, blank=True, null=True)
     actors = models.ManyToManyField(Actor, blank=True)

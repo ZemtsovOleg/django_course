@@ -1,13 +1,14 @@
+import uuid
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordResetView
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.mail import EmailMessage
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, FormView
-from django.core.mail import send_mail
 
-# from .utils import send_email_for_verify
 from .forms import CustomUserCreationForm, FeedbackForm
 
 
@@ -18,18 +19,28 @@ class HomePageView(TemplateView):
 class SignUpCreateView(CreateView):
     form_class = CustomUserCreationForm
     template_name = 'registration/registration.html'
-    success_url = reverse_lazy('confirm-email_url')
+    success_url = reverse_lazy('confirm-email-url')
 
-    # def post(self, request, *args, **kwargs): 
-    #     result = super().post(request, *args, **kwargs)
-    #     send_email_for_verify(self, request)
-    #     return result
+    def form_valid(self, form):
+        '''Sending an email for email verification '''
+        token = uuid.uuid4().hex
+        confirm_link = self.request.build_absolute_uri(
+            reverse_lazy('email-confirmed-url', kwargs={'token': token}))
+        email_body = f'Please use the link to complete registration: {confirm_link}'
+        email = EmailMessage(
+            subject='Confirm Your Email Address',
+            body=email_body,
+            to=(form.cleaned_data['email'], )
+        )
+        email.send()
+        return super().form_valid(form)
 
 
 class CustomPasswordResetView(PasswordResetView):
     template_name = 'registration/password_reset.html'
 
     def form_valid(self, form):
+        '''Check if email is available in the database'''
         form_email = form.cleaned_data['email']
         CustomUser = get_user_model()
 
@@ -56,3 +67,9 @@ class FeedbackFormView(FormView):
 
 class ConfirmEmail(TemplateView):
     template_name = 'registration/confirm_email.html'
+
+
+class ConfirmedEmail(TemplateView):
+    template_name = 'registration/email_confirmed.html'
+
+    

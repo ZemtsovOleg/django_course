@@ -1,15 +1,17 @@
 from django.urls import include, path
 
-from .views import (ConfirmEmail, CustomPasswordResetView, FeedbackFormView,
-                    HomePageView, ProfilePageView, SignUpCreateView)
+from .views import (ConfirmedEmail, ConfirmEmail, CustomPasswordResetView,
+                    FeedbackFormView, HomePageView, ProfilePageView,
+                    SignUpCreateView)
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='home-url'),
     path('feedback/', FeedbackFormView.as_view(), name='feedback-url'),
     path('sign-up/', SignUpCreateView.as_view(), name='sign-up-url'),
-    path('password_reset/', CustomPasswordResetView.as_view(),
+    path('password-reset/', CustomPasswordResetView.as_view(),
          name="password-reset-url"),
-    path('confirm-email/', ConfirmEmail.as_view(), name='confirm-email_url'),
+    path('confirm-email/', ConfirmEmail.as_view(), name='confirm-email-url'),
+    path('email-confirmed/<token>/', ConfirmedEmail.as_view(), name='email-confirmed-url'),
     # path('verify_email/<uidb64>/<token>/',
     #      EmailVerify.as_view(), name='verify-email'),
     path('', include('django.contrib.auth.urls')),

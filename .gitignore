@@ -13,6 +13,8 @@ env/
 
 __pycache__/
 
+django_cache/
+
 # Django stuff:
 *.sqlite
 *.sqlite3

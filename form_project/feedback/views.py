@@ -37,9 +37,7 @@ class FeedBackListView(ListView):
     template_name = 'feedback/list_feedback.html'
     model = Feedback
     context_object_name = 'feedbacks_data'  # 'object_list'
-
-    def get_queryset(self):
-        return Feedback.objects.filter(tattoo=True)
+    queryset = Feedback.objects.filter(tattoo=True)
 
 
 class FeedBackDetailView(DetailView):

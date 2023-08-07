@@ -32,11 +32,8 @@ class IndexListView(ListView):
     model = Movie
     ordering = ['name']
     context_object_name = 'movies'  # object_list
-    # queryset = Movie.objects.filter(is_published=True).select_related('director').prefetch_related('actors') 
-
-    def get_queryset(self):
-        # Фильтруем записи по полю is_published, чтобы исключить неопубликованные
-        return super().get_queryset().filter(is_published=True).select_related('director').prefetch_related('actors')
+    queryset = Movie.objects.filter(is_published=True).select_related(
+        'director').prefetch_related('actors')
 
 
 class ActorsListView(ListView):
@@ -57,13 +54,12 @@ class MovieDetailView(DetailView):
     template_name = 'movie_app/movie.html'
     model = Movie
     slug_url_kwarg = 'slug_movie'
+    queryset = Movie.objects.filter(is_published=True).select_related(
+        'director').prefetch_related('actors')
 
-    def get_queryset(self):
-        return super().get_queryset().select_related('director').prefetch_related('actors')
 
-
-def pageNotFound(request, exception):
-    return HttpResponseNotFound('Page not found')
+# def pageNotFound(request, exception):
+#     return HttpResponseNotFound('Page not found')
 
 
 # def show_actor(request, slug_actor: str):

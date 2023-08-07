@@ -2,6 +2,8 @@ from django.urls import path
 
 from . import views
 
+# app_name = 'movie_app' "{% url 'movie_app:home-url' %}"
+# namespace
 
 urlpatterns = [
     path('', views.IndexListView.as_view(), name='home-url'),
