@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-kc-w2z0*ncx4thitr!m8btzbhp(2^d8dcgo(i*2w1pn8+8+t@n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -127,18 +127,31 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # My settings
 
+
 AUTH_USER_MODEL = "user.CustomUser"
+
 
 LOGIN_REDIRECT_URL = 'home-url'
 LOGOUT_REDIRECT_URL = 'home-url'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 AUTHENTICATION_BACKENDS = [
     'axes.backends.AxesStandaloneBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-AXES_FAILURE_LIMIT = 4
+AXES_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = timedelta(minutes=30)
-AXES_ENABLED = True
+AXES_ENABLED = False
+
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+DEFAULT_FROM_EMAIL = ''
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

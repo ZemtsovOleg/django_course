@@ -1,0 +1,31 @@
+{% extends 'user/base.html' %}
+
+{% block title %} Feedback {% endblock %}
+
+{% block content %}
+
+<h1 class="container">Feedback</h1>
+
+<form class="container" method="post">
+  {% csrf_token %}
+  <div class="col-md-6">
+    <label class="form-label">Full name:</label>
+    {{ form.full_name }}
+    {{ form.errors.full_name }}
+  </div>
+  <div class="col-md-6">
+    <label for="inputEmail4" class="form-label">Email:</label>
+    {{ form.email }}
+    {{ form.errors.email }}
+  </div>
+  <div class="col-md-6">
+    <label for="inputPassword4" class="form-label">Feedback:</label>
+    {{ form.feedback }}
+    {{ form.errors.feedback }}
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</form>
+
+{% endblock %}
