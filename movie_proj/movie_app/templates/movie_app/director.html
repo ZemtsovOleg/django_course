@@ -9,7 +9,7 @@
 <h2>Movies made:</h2>
 
 <ul>
-    {% for movie in director.movie_set.all %}
+    {% for movie in movies %}
     <li><a href="{{ movie.get_absolute_url }}">{{ movie.name }}</a></li>
     {% endfor%}
 </ul>

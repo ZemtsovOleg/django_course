@@ -1,7 +1,8 @@
 from django.db.models import Avg, Count, Sum
-from django.http import HttpResponseNotFound
+# from django.http import HttpResponseNotFound
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import DetailView, ListView
+from django.db.models import Prefetch
 
 from .models import Actor, Director, Movie
 
@@ -16,14 +17,17 @@ def show_all_movies(request):
 
 
 def show_all_directors(request):
-    directors = Director.objects.all().order_by('first_name', 'last_name')
+    directors = Director.objects.all().order_by(
+        'first_name', 'last_name').defer('gender', 'country')
     return render(request, 'movie_app/all_directors.html',
                   {'directors': directors})
 
 
 def show_director(request, slug_director: str):
-    director = get_object_or_404(Director, slug=slug_director)
-    return render(request, 'movie_app/director.html', {'director': director})
+    director = get_object_or_404(Director.objects.defer(
+        'gender', 'country', 'slug'), slug=slug_director)
+    movies = Movie.objects.filter(director=director).only('name', 'slug')
+    return render(request, 'movie_app/director.html', {'director': director, 'movies': movies})
 
 
 class IndexListView(ListView):
@@ -42,12 +46,15 @@ class ActorsListView(ListView):
     model = Actor
     context_object_name = 'actors'
     ordering = ['first_name', 'last_name']
+    queryset = Actor.objects.defer('gender', 'country')
 
 
 class ActorDetailView(DetailView):
     template_name = 'movie_app/actor.html'
     model = Actor
     slug_url_kwarg = 'slug_actor'
+    queryset = Actor.objects.only('first_name', 'last_name').prefetch_related(
+        Prefetch('movie_set', queryset=Movie.objects.only('name', 'slug')))
 
 
 class MovieDetailView(DetailView):

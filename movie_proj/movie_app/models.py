@@ -6,7 +6,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 # Create your models here.
 
 
-class CountryMixin(models.Model):
+class AbstractCountryMixin(models.Model):
     COUNTRIES_CHOICES = (
         ('US', 'USA'),
         ('CA', 'Canada'),
@@ -21,7 +21,7 @@ class CountryMixin(models.Model):
         abstract = True
 
 
-class Person(models.Model):
+class AbstractPerson(models.Model):
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
@@ -46,11 +46,11 @@ class Person(models.Model):
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
 
-    def __str__(self):
-        return self.get_full_name()
+    # def __str__(self):
+    #     return self.get_full_name()
 
 
-class Director(CountryMixin, Person):
+class Director(AbstractCountryMixin, AbstractPerson):
 
     class Meta:
         constraints = [
@@ -62,7 +62,7 @@ class Director(CountryMixin, Person):
         return reverse('director-url', args=(self.slug, ))
 
 
-class Actor(CountryMixin, Person):
+class Actor(AbstractCountryMixin, AbstractPerson):
 
     class Meta:
         constraints = [
@@ -74,7 +74,7 @@ class Actor(CountryMixin, Person):
         return reverse('actor-url', args=(self.slug, ))
 
 
-class Movie(CountryMixin, models.Model):
+class Movie(AbstractCountryMixin, models.Model):
     name = models.CharField(max_length=150, blank=False)
     director = models.ForeignKey(
         Director, on_delete=models.PROTECT, blank=True, null=True)
