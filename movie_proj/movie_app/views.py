@@ -3,7 +3,9 @@ from django.db.models import Avg, Count, Sum
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import DetailView, ListView
 from django.db.models import Prefetch
+from django.views.generic.edit import UpdateView
 
+from .forms import MovieForm
 from .models import Actor, Director, Movie
 
 # Create your views here.
@@ -63,6 +65,14 @@ class MovieDetailView(DetailView):
     slug_url_kwarg = 'slug_movie'
     queryset = Movie.objects.filter(is_published=True).select_related(
         'director').prefetch_related('actors')
+
+
+class MovieUpdateView(UpdateView):
+    template_name = 'movie_app/movie_update.html'
+    model = Movie
+    form_class = MovieForm
+    success_url = 'home-url'
+    slug_url_kwarg = 'slug_movie'
 
 
 # def pageNotFound(request, exception):

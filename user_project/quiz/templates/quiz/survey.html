@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} Survey {% endblock %}
+
+{% block content %}
+
+<br>
+<h1 class="container">Survey</h1>
+
+<div class="container">
+    {% for question in questions %}
+    <li>{{ question.question }}</li>
+    <li>{{ question.options }}</li>
+    {% endfor%}
+</div>
+
+{% endblock %}

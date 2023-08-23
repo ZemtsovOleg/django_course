@@ -1,4 +1,4 @@
-{% extends 'user/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %} Profile {% endblock %}
 
@@ -6,5 +6,13 @@
 
 <br>
 <h1 class="container">Profile</h1>
+<br>
+
+<h3 class="container">Take the survey:</h3>
+<ul class="container">
+    {% for survey in surveys %}
+    <li><a href="{{ survey.get_absolute_url }}">{{ survey }}</a></li>
+    {% endfor%}
+</ul>
 
 {% endblock %}

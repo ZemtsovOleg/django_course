@@ -1,21 +1,20 @@
 from django.urls import include, path
 
-from .views import (ConfirmedEmail, ConfirmEmail, CustomPasswordResetView,
-                    FeedbackFormView, HomePageView, ProfilePageView,
-                    SignUpCreateView)
+from . import views
 
 urlpatterns = [
-    path('', HomePageView.as_view(), name='home-url'),
-    path('feedback/', FeedbackFormView.as_view(), name='feedback-url'),
-    path('sign-up/', SignUpCreateView.as_view(), name='sign-up-url'),
-    path('password-reset/', CustomPasswordResetView.as_view(),
+    path('', views.HomePageView.as_view(), name='home-url'),
+    path('feedback/', views.FeedbackFormView.as_view(), name='feedback-url'),
+    path('sign-up/', views.SignUpCreateView.as_view(), name='sign-up-url'),
+    path('password-reset/', views.CustomPasswordResetView.as_view(),
          name="password-reset-url"),
-    path('confirm-email/', ConfirmEmail.as_view(), name='confirm-email-url'),
-    path('email-confirmed/<token>/', ConfirmedEmail.as_view(), name='email-confirmed-url'),
+    path('confirm-email/', views.ConfirmEmail.as_view(), name='confirm-email-url'),
+    path('email-confirmed/<token>/', views.ConfirmedEmail.as_view(),
+         name='email-confirmed-url'),
     # path('verify_email/<uidb64>/<token>/',
-    #      EmailVerify.as_view(), name='verify-email'),
+    #      views.EmailVerify.as_view(), name='verify-email'),
     path('', include('django.contrib.auth.urls')),
-    path('<slug:slug_user>/', ProfilePageView.as_view(), name='profile-url'),
+    path('<slug:slug_user>/', views.ProfilePageView.as_view(), name='profile-url'),
 ]
 
 ''' Для избежания коллизий и обеспечения уникальности слагов, можно принять несколько подходов:

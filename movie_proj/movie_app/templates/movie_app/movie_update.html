@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %} Movie {{ movie.name }} {% endblock %}
+
+{% block content %}
+
+<h1> Movie: {{ movie.name }} </h1>
+
+<div>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form%}
+        <div class="form-style">
+            {{ field.label_tag }}
+            {{ field.errors }}
+            {{ field }}
+        </div>
+        <br>
+        {% endfor %}
+        <button>Send</button>
+    </form>
+</div>
+
+<br>
+
+{% endblock %}

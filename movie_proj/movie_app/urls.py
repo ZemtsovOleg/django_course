@@ -15,4 +15,6 @@ urlpatterns = [
     path('actor/<slug:slug_actor>',
          views.ActorDetailView.as_view(), name='actor-url'),
     path('<slug:slug_movie>', views.MovieDetailView.as_view(), name='movie-url'),
+    path('update-movie/<slug:slug_movie>',
+         views.MovieUpdateView.as_view(), name='update-movie')
 ]

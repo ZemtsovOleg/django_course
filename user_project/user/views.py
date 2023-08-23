@@ -1,15 +1,23 @@
 import uuid
+from typing import Any
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordResetView
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import EmailMessage
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
+from django.views.generic import ListView
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, FormView
 
+from quiz.models import Survey
+
 from .forms import CustomUserCreationForm, FeedbackForm
+
+CustomUser = get_user_model()
 
 
 class HomePageView(TemplateView):
@@ -42,7 +50,6 @@ class CustomPasswordResetView(PasswordResetView):
     def form_valid(self, form):
         '''Check if email is available in the database'''
         form_email = form.cleaned_data['email']
-        CustomUser = get_user_model()
 
         try:
             CustomUser.objects.get(email=form_email)
@@ -54,9 +61,16 @@ class CustomPasswordResetView(PasswordResetView):
         return super().form_valid(form)
 
 
-class ProfilePageView(LoginRequiredMixin, TemplateView):
+class ProfilePageView(LoginRequiredMixin, ListView):
     template_name = 'user/profile.html'
     login_url = reverse_lazy('login')
+    model = Survey
+    context_object_name = 'surveys'
+
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        slug_user = self.kwargs['slug_user']
+        get_object_or_404(CustomUser, slug=slug_user)
+        return super().get(request, *args, **kwargs)
 
 
 class FeedbackFormView(FormView):
@@ -71,5 +85,3 @@ class ConfirmEmail(TemplateView):
 
 class ConfirmedEmail(TemplateView):
     template_name = 'registration/email_confirmed.html'
-
-    

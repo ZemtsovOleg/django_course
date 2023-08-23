@@ -38,8 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Сustom settings
+    'debug_toolbar',
+    'django_extensions',
     'user',
     'axes',
+    'quiz',
 ]
 
 MIDDLEWARE = [
@@ -50,7 +54,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Сustom settings
     'axes.middleware.AxesMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'user_project.urls'
@@ -58,7 +64,9 @@ ROOT_URLCONF = 'user_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,10 +134,17 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# My settings
+# Сustom settings
 
 
-AUTH_USER_MODEL = "user.CustomUser"
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    # ...
+]
+
+
+AUTH_USER_MODEL = 'user.CustomUser'
 
 
 LOGIN_REDIRECT_URL = 'home-url'
@@ -146,7 +161,7 @@ AXES_COOLOFF_TIME = timedelta(minutes=30)
 AXES_ENABLED = False
 
 
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = 'smtp.yandex.ru'
 # EMAIL_PORT = 465
 # EMAIL_USE_TLS = False

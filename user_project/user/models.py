@@ -1,12 +1,11 @@
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
+from django.core.validators import validate_slug
 from django.db import models
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
-from django.core.validators import validate_slug
-
 
 validate_slug.message = _(
     "Enter a valid value consisting of letters, numbers, underscores, or hyphens.")
