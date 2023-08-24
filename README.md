@@ -4,13 +4,12 @@ Welcome to the "Django Course Projects" repository! Here, I showcase my solution
 
 ## Projects
 
-The repository comprises the following projects:
-
-my_page: The simplest project focusing on foundational concepts.
-user_project: A comprehensive project covering user registration, password reset via email, and more.
-authentication: A small project testing a basic registration mechanism.
-form_project: An exploration of working with forms in Django.
-movie_proj: A project dedicated to utilizing Django ORM for managing movie data.
+The repository comprises the following projects:  
+__my_page:__ The simplest project focusing on foundational concepts.  
+__user_project:__ A comprehensive project covering user registration, password reset via email, and more.  
+__authentication:__ A small project testing a basic registration mechanism.  
+__form_project:__ An exploration of working with forms in Django.  
+__movie_proj:__ A project dedicated to utilizing Django ORM for managing movie data.  
 
 ## git clone
 
