@@ -9,8 +9,11 @@
 
 <div class="container">
     {% for question in questions %}
-    <li>{{ question.question }}</li>
-    <li>{{ question.options }}</li>
+        <ol>{{ question.question }}</ol>
+        {% for option in question.options.all %}
+            <li>{{ option }}</li>
+        {% endfor%}
+        <br>
     {% endfor%}
 </div>
 
